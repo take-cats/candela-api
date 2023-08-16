@@ -1,6 +1,7 @@
 import os
 from fastapi import UploadFile
 from main import app
+from yolo.yolo import yolo
 
 @app.post("/ai/upload/")
 def get_picture(file: UploadFile):
@@ -36,3 +37,10 @@ def get_picture(file: UploadFile):
         f.write(file.file.read())
     
     return {"message" : "Picture upload success"}
+
+
+@app.post("/ai/yolo/upload/")
+def get_picture(file: UploadFile):
+    yolo.analyser(file.filename)
+
+    return {"message" : "YoLo upload success"}
