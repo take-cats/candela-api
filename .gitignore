@@ -1,5 +1,5 @@
 **/__pycache__
 **/.pytest_cache
 **/picture
-yolov2-tiny.cfg
-yolov2-tiny.weights
+**/runs
+yolov5s.pt

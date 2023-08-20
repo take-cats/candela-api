@@ -1,31 +1,27 @@
 import os
 from fastapi import UploadFile
 from main import app
-from yolo.yolo import yolo
+from uitl_enums import AnalyseType
+from yolo.yolo import YoLo
 
-@app.post("/ai/upload/")
-def get_picture(file: UploadFile):
+
+@app.post("/ai/yolo/analyse/")
+def get_picture(file: UploadFile, type: AnalyseType):
     """
-    사진을 받아서 picture/finding 폴더에 넣습니다.
+    사진을 받아서 yolo 함수를 통해서 사진을 분석합니다.
 
     :param file: 사진을 받아옵니다.
     """
+    YoLo.analyser(file.filename, type)
 
-    UPLOAD_FOLDER = "picture/finding"
-
-    file_path = os.path.join(UPLOAD_FOLDER, file.filename)
-
-    with open(file_path, "wb") as f:
-        f.write(file.file.read())
-    
-    return {"message" : "Picture upload success"}
+    return {"status": 200}
 
 
 @app.post("/ai/data/upload/")
 def get_picture(file: UploadFile):
     """
     사진을 받아서 picture/leaning 폴더에 넣습니다.
-    
+
     :param file: 사진을 받아옵니다.
     """
 
@@ -35,12 +31,5 @@ def get_picture(file: UploadFile):
 
     with open(file_path, "wb") as f:
         f.write(file.file.read())
-    
-    return {"message" : "Picture upload success"}
 
-
-@app.post("/ai/yolo/upload/")
-def get_picture(file: UploadFile):
-    yolo.analyser(file.filename)
-
-    return {"message" : "YoLo upload success"}
+    return {"status": 200}
