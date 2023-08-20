@@ -1,0 +1,1 @@
+YoLo cfg, weight download page = `https://pjreddie.com/darknet/yolo/`
