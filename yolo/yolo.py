@@ -1,11 +1,11 @@
 import cv2
 import numpy as np
 
-net = cv2.dnn.readNet("yolov2-tiny.weights", "yolov2-tiny.cfg")
+net = cv2.dnn.readNet("yolo/yolov2-tiny.weights", "yolo/yolov2-tiny.cfg")
 
 classes = []
 
-with open("yolo.names", "r") as f:
+with open("yolo/yolo.names", "r") as f:
     classes = [line.strip() for line in f.readlines()]
 layer_names = net.getLayerNames()
 output_layers = [layer_names[i - 1] for i in net.getUnconnectedOutLayers()]
