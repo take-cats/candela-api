@@ -7,6 +7,7 @@ app = FastAPI()
 
 app.include_router(ai.router, prefix="/ai", tags=["ai"])
 
+
 @app.get("/")
 def root():
     return {"status": 200}
