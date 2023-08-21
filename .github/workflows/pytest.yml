@@ -29,6 +29,14 @@ jobs:
             BRANCH: ${{ github.ref }}
         run: git checkout ${{ env.BRANCH }}
 
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
       - name: Setup Python ${{ matrix.python-version }}
         uses: actions/setup-python@v1
         with:
