@@ -34,8 +34,11 @@ def test_analyse_yolo():
 
 
 def test_training_data_upload():
-    with open(_ASSET_IMAGES[0], "rb") as image_file:
-        response = client.post(
-            "/ai/data/upload/", files={"file": ("test_image.jpg", image_file)})
+    image = open(_get_asset("living_room.png"), "rb")
+
+    response = client.post(
+        "/ai/data/upload/",
+        files={"file": ("living_room.png", image)}
+    )
 
     assert response.status_code == 200
