@@ -1,0 +1,44 @@
+name: PyTest
+
+on:
+  push:
+    branches:
+      - '*'
+  pull_request:
+    branches:
+      - '*'
+    workflow_dispatch:
+
+jobs:
+  pytest:
+    strategy:
+      matrix:
+        python-version: [3.11.4]
+        os: [ubuntu-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Switch to current branch
+        env:
+            BRANCH: ${{ github.ref }}
+        run: git checkout ${{ env.BRANCH }}
+
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run tests
+        run: |
+          python test.py
