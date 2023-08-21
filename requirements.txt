@@ -1,10 +1,10 @@
+### For our project
 fastapi
 uvicorn
 pytest
-python_multipart
+python_multipart  # ???
 
-# YoLo v5
-
+### For YoLo v5
 # Base ------------------------------------------------------------------------
 gitpython>=3.1.30
 matplotlib>=3.3
