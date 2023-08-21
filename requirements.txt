@@ -3,6 +3,7 @@ fastapi
 uvicorn
 pytest
 python_multipart  # ???
+httpx
 
 ### For YoLo v5
 # Base ------------------------------------------------------------------------
