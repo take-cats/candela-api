@@ -1,4 +1,5 @@
 import os
+import shutil
 import torch
 from fastapi import UploadFile, APIRouter
 from etc.enums import AnalyseType
@@ -35,7 +36,14 @@ async def analyse_image(file: UploadFile, type: AnalyseType):
 async def learn_data_upload(file: UploadFile):
     _UPLOAD_DIR = "data/learning"
 
-    file_path = os.path.join(_UPLOAD_DIR, file.filename)
+    if not os.path.exists(_UPLOAD_DIR):
+        os.makedirs(_UPLOAD_DIR)
 
-    with open(file_path, "wb") as f:
-        f.write(file.file.read())
+    path = os.path.abspath(file.filename)
+    if os.name != "nt":
+        path = path.replace("\\", "/")
+
+    full_path = os.path.join(_UPLOAD_DIR, file.filename)
+
+    with open(full_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
