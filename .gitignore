@@ -1,2 +1,15 @@
+# IDE
+.idea
+.vscode
+.fleet
+
+# Some trash
 **/__pycache__
-**/picture
+**/.pytest_cache
+
+# YoLo
+runs
+yolov5s.pt
+
+# Dynamic dir
+data
