@@ -1,23 +1,40 @@
 from fastapi.testclient import TestClient
 from main import app
-from picture import app
-from uitl_enums import AnalyseType
+from etc.enums import AnalyseType
+from os import listdir
 
 client = TestClient(app)
 
-test_image = ["test/test_image.jpg", "test/test_image2.jpg"]
+# ============== Test Data ============== #
+_UPLOAD_DIR = "data/learning"
+
+_ASSET_DIR = "test/assets"
+_ASSET_IMAGES = [file for file in listdir(_ASSET_DIR) if file.endswith(".png")]
 
 
-def test_yolo_upload():
-    with open(test_image[1], "rb") as image_file:
-        response = client.post(
-        "/ai/yolo/analyse/", files={"file": (test_image[1], image_file)}, params={"type": AnalyseType.IMAGE})
+def _get_asset(name: str):
+    if name not in _ASSET_IMAGES:
+        raise Exception(
+            "Cannot found test image. Please check test/assets directory.")
+    else:
+        return _ASSET_DIR + "/" + name
+# ======================================= #
+
+
+def test_analyse_yolo():
+    image = open(_get_asset("living_room.png"), "rb")
+
+    response = client.post(
+        "/ai/yolo/analyse/",
+        files={"file": ("living_room.png", image)},
+        params={"type": AnalyseType.IMAGE}
+    )
 
     assert response.status_code == 200
 
 
-def test_data_picture_upload():
-    with open(test_image[0], "rb") as image_file:
+def test_training_data_upload():
+    with open(_ASSET_IMAGES[0], "rb") as image_file:
         response = client.post(
             "/ai/data/upload/", files={"file": ("test_image.jpg", image_file)})
 

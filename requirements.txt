@@ -1,7 +1,7 @@
 fastapi
 uvicorn
 pytest
-
+python_multipart
 
 # YoLo v5
 
