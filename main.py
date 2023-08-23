@@ -1,6 +1,6 @@
 import os
-from fastapi import APIRouter, FastAPI
-import routers.ai as ai
+from fastapi import FastAPI
+import api.ai.ai as ai
 
 # app = FastAPI(root_path="/api/v1")  # https://fastapi.tiangolo.com/advanced/behind-a-proxy/
 app = FastAPI()
