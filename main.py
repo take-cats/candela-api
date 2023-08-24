@@ -1,16 +1,20 @@
 import os
+
 from fastapi import FastAPI
-import api.ai.ai as ai
+
+import api.ai.clas as clas
+import api.ai.yolo as yolo
 
 # app = FastAPI(root_path="/api/v1")  # https://fastapi.tiangolo.com/advanced/behind-a-proxy/
 app = FastAPI()
 
-app.include_router(ai.router, prefix="/ai", tags=["ai"])
+app.include_router(yolo.router, prefix="/ai/yolo", tags=["ai"])
+app.include_router(clas.router, prefix="/ai/clas", tags=["ai"])
 
 
 @app.get("/")
 def root():
-    return {"status": 200}
+    return
 
 
 if __name__ == "__main__":
