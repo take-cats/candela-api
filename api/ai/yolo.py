@@ -32,7 +32,14 @@ async def _analyser(file: UploadFile, a_type: AnalyseType):
 
     if a_type == AnalyseType.TEXT:
         res = analyzed.pandas().xyxy[0].values.tolist()
-        return res
+        items = [item[6] for item in res]
+        counted = {}
+        for item in items:
+            if item in counted:
+                counted[item] += 1
+            else:
+                counted[item] = 1
+        return counted
     elif a_type == AnalyseType.IMAGE:
         return model(file).render()
 
@@ -48,4 +55,4 @@ async def analyse_image(file: UploadFile, a_type: AnalyseType):
     if file.content_type.split("/")[0] != "image":
         raise HTTPException(status_code=400, detail="File is not image")
 
-    await _analyser(file, a_type)
+    return await _analyser(file, a_type)
