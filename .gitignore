@@ -1,7 +1,9 @@
 # IDE
 .idea
-.vscode
+.vscode/*
 .fleet
+
+!.vscode/settings.json
 
 # Some trash
 **/__pycache__
