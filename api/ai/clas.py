@@ -1,12 +1,13 @@
-"""
-CLAS means 'CLAS'sification.
-"""
 import os
 import shutil
 
 from fastapi import APIRouter, UploadFile, HTTPException
 
 router = APIRouter()
+
+"""
+CLAS means 'CLAS'sification.
+"""
 
 
 @router.post(
