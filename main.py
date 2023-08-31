@@ -1,11 +1,8 @@
-import os
-
+import uvicorn
 from fastapi import FastAPI
 
-import api.ai.clas as clas
-import api.ai.yolo as yolo
+from api.ai import clas, yolo
 
-# app = FastAPI(root_path="/api/v1")  # https://fastapi.tiangolo.com/advanced/behind-a-proxy/
 app = FastAPI()
 
 app.include_router(yolo.router, prefix="/ai/yolo", tags=["ai"])
@@ -14,8 +11,8 @@ app.include_router(clas.router, prefix="/ai/clas", tags=["ai"])
 
 @app.get("/")
 def root():
-    return
+    return {"message": "Welcome to Candela API!"}
 
 
 if __name__ == "__main__":
-    os.system("python -m uvicorn main:app")
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
